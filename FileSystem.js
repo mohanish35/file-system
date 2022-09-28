@@ -89,6 +89,28 @@ class FileSystem {
       return false
     }
   }
+  async rename(elementPath, newName) {
+    try {
+      await this.validator.validateElementPathExists(elementPath)
+      
+      if (elementPath === '/') {
+        throw new Error('Cannot Rename Root Directory')
+      }
+
+      const oldPathSplitted = elementPath.split('/')
+      const newPathSplitted = oldPathSplitted
+      newPathSplitted[newPathSplitted.length - 1] = newName
+      const newPath = newPathSplitted.join('/')
+
+      await this.db.all("UPDATE Element SET path = REPLACE(path, ?, ?), parent_path = REPLACE(parent_path, ?, ?);", [elementPath, newPath, elementPath, newPath])
+
+      return true
+
+    } catch (error) {
+      console.error(error)
+      return false
+    }
+  }
   async delete(elementPath) {
     try {
       await this.validator.validateElementPathExists(elementPath)
