@@ -9,14 +9,18 @@ class FileSystem {
     this.dateHelper = new DateHelper()
   }
   async scan(directoyPath) {
-    await this.validator.validateFolderPathExists(directoyPath)
+    try {
+      await this.validator.validateFolderPathExists(directoyPath)
 
-    const records = await this.db.all(
-      sqlQueries.getChildrenNameFromParentPath,
-      [directoyPath]
-    )
+      const records = await this.db.all(
+        sqlQueries.getChildrenNameFromParentPath,
+        [directoyPath]
+      )
 
-    return records.map((record) => record.name)
+      return records.map((record) => record.name)
+    } catch(error) {
+      console.error(error)
+    }
   }
   async create(elementPath, elementType) {
     try {
@@ -61,13 +65,15 @@ class FileSystem {
   }
   async read(filePath) {
     try {
+      // No need to validate filePath because record[0].content throws error
       const record = await this.db.all(
-        sqlQueries.readFileContent,
+        sqlQueries.readFileFromPath,
         [filePath]
       )
 
       return record[0].content
     } catch (error) {
+      console.error(error)
       return null
     }
   }
@@ -78,8 +84,37 @@ class FileSystem {
       await this.db.all(sqlQueries.updateFileContent, [stringContent, timestamp, filePath])
 
       return true
-    } catch {
+    } catch(error) {
+      console.error(error)
       return false
+    }
+  }
+  async ctime(filePath) {
+    try {
+      // No need to validate filePath because record[0].created_at throws error
+      const record = await this.db.all(
+        sqlQueries.readFileFromPath,
+        [filePath]
+      )
+
+      return record[0].created_at
+    } catch (error) {
+      console.error(error)
+      return -1
+    }
+  }
+  async mtime(filePath) {
+    try {
+      // No need to validate filePath because record[0].modified_at throws error
+      const record = await this.db.all(
+        sqlQueries.readFileFromPath,
+        [filePath]
+      )
+
+      return record[0].modified_at
+    } catch (error) {
+      console.error(error)
+      return -1
     }
   }
 }
