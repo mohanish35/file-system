@@ -18,3 +18,6 @@ await setup()
 const fileSystem = new FileSystem(db)
 
 // console.log(await fileSystem.scan("/"))
+// console.log(await fileSystem.create('/', "FOLDER"))
+// console.log(await fileSystem.create('/Avengers', "FOLDER"))
+console.log(await fileSystem.create('/Avengers/Tony Stark', "FILE"))

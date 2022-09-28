@@ -5,6 +5,6 @@ CREATE TABLE IF NOT EXISTS Element (
   parent_path TEXT,
   content TEXT,
   element_type TEXT CHECK( element_type IN ('FILE', 'FOLDER')) NOT NULL,
-  createdAt TEXT NOT NULL,
-  modifiedAt TEXT NOT NULL
+  created_at TEXT NOT NULL,
+  modified_at TEXT NOT NULL
 );

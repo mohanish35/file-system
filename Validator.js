@@ -5,18 +5,22 @@ class Validator {
     this.db = db
   }
 
-  async folderPathValidator(path) {
+  pathValidator() {
+
+  }
+
+  async validateFolderPathExists(path) {
     const recordCount = await this.db.all(
       sqlQueries.getElementCountFromPathAndType,
       [path, keywords.folder]
     )
 
     if (recordCount[0]["count()"] !== 1) {
-      throw new Error(`Invalid Folder Path: ${path}`)
+      throw new Error(`Folder Path Does Not Exists: ${path}`)
     }
   }
 
-  async filePathValidator(path) {
+  async validateFilPathValidator(path) {
     const recordCount = await this.db.all(
       sqlQueries.getElementCountFromPathAndType,
       [path, keywords.file]
