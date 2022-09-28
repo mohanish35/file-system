@@ -32,6 +32,17 @@ class Validator {
       throw new Error(`Invalid File Path: ${path}`)
     }
   }
+
+  async validateElementPathExists(path) {
+    const recordCount = await this.db.all(
+      sqlQueries.getElementCountFromPath,
+      [path]
+    )
+
+    if (recordCount[0]["count()"] !== 1) {
+      throw new Error(`Invalid Element Path: ${path}`)
+    }
+  }
 }
 
 export default Validator

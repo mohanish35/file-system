@@ -89,6 +89,18 @@ class FileSystem {
       return false
     }
   }
+  async delete(elementPath) {
+    try {
+      await this.validator.validateElementPathExists(elementPath)
+
+      await this.db.all(sqlQueries.deleteRecursively, [`${elementPath}%`])
+
+      return true
+    } catch(error) {
+      console.error(error)
+      return false
+    }
+  }
   async ctime(filePath) {
     try {
       // No need to validate filePath because record[0].created_at throws error
