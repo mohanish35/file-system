@@ -4,9 +4,13 @@ const getElementCountFromPathAndType =
   "SELECT count() FROM Element WHERE path=? AND element_type=?"
 const createElement =
   "INSERT INTO Element (name, path, parent_path, content, element_type, created_at, modified_at) VALUES (?, ?, ?, ?, ?, ?, ?)"
+const readFileContent = "SELECT content FROM Element WHERE path=?;"
+const updateFileContent = "UPDATE Element SET content = ?, modified_at = ? WHERE path=?;"
 
 export default {
   getChildrenNameFromParentPath,
   getElementCountFromPathAndType,
-  createElement
+  createElement,
+  readFileContent,
+  updateFileContent
 }

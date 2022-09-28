@@ -5,6 +5,8 @@ class Validator {
     this.db = db
   }
 
+  pathResolution
+
   pathValidator() {
 
   }
@@ -20,14 +22,14 @@ class Validator {
     }
   }
 
-  async validateFilPathValidator(path) {
+  async validateFilePathExists(path) {
     const recordCount = await this.db.all(
       sqlQueries.getElementCountFromPathAndType,
       [path, keywords.file]
     )
 
     if (recordCount[0]["count()"] !== 1) {
-      throw new Error(`Invalid Folder Path: ${path}`)
+      throw new Error(`Invalid File Path: ${path}`)
     }
   }
 }

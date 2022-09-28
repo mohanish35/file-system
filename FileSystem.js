@@ -23,7 +23,7 @@ class FileSystem {
       let parentPath = ""
       let name = ""
       const splittedPath = elementPath.split("/")
-      const todaysDate = this.dateHelper.getTodaysDateFormatted()
+      const timestamp = this.dateHelper.getCurrentUnixTimestamp()
 
       // Creating root directory
       if (elementPath === "/") {
@@ -49,13 +49,36 @@ class FileSystem {
         parentPath,
         "",
         elementType,
-        todaysDate,
-        todaysDate,
+        timestamp,
+        timestamp,
       ])
 
       return true
     } catch (error) {
       console.error(error)
+      return false
+    }
+  }
+  async read(filePath) {
+    try {
+      const record = await this.db.all(
+        sqlQueries.readFileContent,
+        [filePath]
+      )
+
+      return record[0].content
+    } catch (error) {
+      return null
+    }
+  }
+  async write(filePath, stringContent) {
+    try {
+      await this.validator.validateFilePathExists(filePath)
+      const timestamp = this.dateHelper.getCurrentUnixTimestamp()
+      await this.db.all(sqlQueries.updateFileContent, [stringContent, timestamp, filePath])
+
+      return true
+    } catch {
       return false
     }
   }

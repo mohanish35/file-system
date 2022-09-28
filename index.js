@@ -17,7 +17,9 @@ await setup()
 
 const fileSystem = new FileSystem(db)
 
-// console.log(await fileSystem.scan("/"))
-// console.log(await fileSystem.create('/', "FOLDER"))
-// console.log(await fileSystem.create('/Avengers', "FOLDER"))
-console.log(await fileSystem.create('/Avengers/Tony Stark', "FILE"))
+console.log(await fileSystem.create('/', "FOLDER"))
+console.log(await fileSystem.create('/Avengers', "FOLDER"))
+console.log(await fileSystem.create('/Avengers/Tony Stark.txt', "FILE"))
+console.log(await fileSystem.write('/Avengers/Tony Stark', 'I am Iron Man'))
+console.log(await fileSystem.read('/Avengers/Tony Stark'))
+console.log(await fileSystem.scan("/"))
