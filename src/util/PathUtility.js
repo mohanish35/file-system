@@ -1,4 +1,4 @@
-import { sqlQueries, keywords } from "../constant/index.js"
+import { sqlQueries, keywords } from "../../constant/index.js"
 import path from 'path'
 
 class PathUtility {

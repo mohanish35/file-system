@@ -1,6 +1,6 @@
 import { keywords, sqlQueries } from "../constant/index.js"
-import PathUtility from "./PathUtility.js"
-import DateHelper from "./DateHelper.js"
+import PathUtility from "./util/PathUtility.js"
+import DateHelper from "./helper/DateHelper.js"
 
 class FileSystem {
   constructor(db) {

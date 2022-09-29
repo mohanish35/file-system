@@ -1,4 +1,4 @@
-import DatabaseConnection from "./src/DatabaseConnection.js"
+import DatabaseConnection from "./src/db/DatabaseConnection.js"
 import FileSystem from "./src/FileSystem.js"
 import runTests from './__tests__/index.js'
 
