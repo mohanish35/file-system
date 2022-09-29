@@ -1,9 +1,6 @@
-import { keywords, sqlQueries } from "./constant/index.js"
+import { keywords, sqlQueries } from "../constant/index.js"
 import PathUtility from "./PathUtility.js"
 import DateHelper from "./DateHelper.js"
-import { GridOptionsWrapper } from "ag-grid-community"
-
-// TODO handle rename replace
 
 class FileSystem {
   constructor(db) {
@@ -11,7 +8,7 @@ class FileSystem {
     this.pathUtility = new PathUtility(db)
     this.dateHelper = new DateHelper()
   }
-  async scan(directoyPath) {
+  scan = async (directoyPath) => {
     try {
       directoyPath = this.pathUtility.resolvePath(directoyPath)
       await this.pathUtility.validateFolderPathExists(directoyPath)
@@ -26,7 +23,7 @@ class FileSystem {
       console.error(error)
     }
   }
-  async create(elementPath, elementType) {
+  create = async (elementPath, elementType) => {
     try {
       elementPath = this.pathUtility.resolvePath(elementPath)
 
@@ -39,7 +36,7 @@ class FileSystem {
       if (elementPath === "/") {
         parentPath = null
         name = "/"
-        // Creating the element in the root directory
+        // Creating an element in the root directory
       } else if (splittedPath.length === 2) {
         parentPath = "/"
         name = splittedPath[splittedPath.length - 1]
@@ -48,7 +45,6 @@ class FileSystem {
         name = splittedPath[splittedPath.length - 1]
       }
 
-      // Validate if the parent folder exists
       if (parentPath) {
         await this.pathUtility.validateFolderPathExists(parentPath)
       }
@@ -69,11 +65,10 @@ class FileSystem {
       return false
     }
   }
-  async read(filePath) {
+  read = async (filePath) => {
     try {
       filePath = this.pathUtility.resolvePath(filePath)
 
-      // No need to validate filePath because record[0].content throws error
       const record = await this.db.all(sqlQueries.readElementFromPath, [
         filePath,
       ])
@@ -84,7 +79,7 @@ class FileSystem {
       return null
     }
   }
-  async write(filePath, stringContent) {
+  write = async (filePath, stringContent) => {
     try {
       filePath = this.pathUtility.resolvePath(filePath)
 
@@ -102,7 +97,7 @@ class FileSystem {
       return false
     }
   }
-  async move(elementPath, directoryPath) {
+  move = async (elementPath, directoryPath) => {
     try {
       elementPath = this.pathUtility.resolvePath(elementPath)
       directoryPath = this.pathUtility.resolvePath(directoryPath)
@@ -139,7 +134,7 @@ class FileSystem {
       return false
     }
   }
-  async rename(elementPath, newName) {
+  rename = async (elementPath, newName) => {
     try {
       elementPath = this.pathUtility.resolvePath(elementPath)
       await this.pathUtility.validateElementPathExists(elementPath)
@@ -170,7 +165,7 @@ class FileSystem {
       return false
     }
   }
-  async delete(elementPath) {
+  delete = async (elementPath) => {
     try {
       elementPath = this.pathUtility.resolvePath(elementPath)
       await this.pathUtility.validateElementPathExists(elementPath)
@@ -183,11 +178,10 @@ class FileSystem {
       return false
     }
   }
-  async ctime(filePath) {
+  ctime = async (filePath) => {
     try {
       filePath = this.pathUtility.resolvePath(filePath)
 
-      // No need to validate filePath because record[0].created_at throws error
       const record = await this.db.all(sqlQueries.readElementFromPath, [
         filePath,
       ])
@@ -198,11 +192,10 @@ class FileSystem {
       return -1
     }
   }
-  async mtime(filePath) {
+  mtime = async (filePath) => {
     try {
       filePath = this.pathUtility.resolvePath(filePath)
 
-      // No need to validate filePath because record[0].modified_at throws error
       const record = await this.db.all(sqlQueries.readElementFromPath, [
         filePath,
       ])

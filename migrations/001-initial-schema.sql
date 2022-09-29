@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS Element (
   modified_at INTEGER NOT NULL
 );
 
--- Insert Root Directory
+-- Insert Root Directory TODO: fix time
 
 INSERT INTO Element (
   name, 
@@ -23,6 +23,6 @@ INSERT INTO Element (
   '/', 
   '/', 
   'FOLDER', 
-  strftime('%s', 'now'), 
-  strftime('%s', 'now')
+  strftime('%ms', 'now'), 
+  strftime('%ms', 'now')
 )
