@@ -1,59 +1,65 @@
 
-export default async (fileSystem) => {
+export default async ({ create, ctime, mtime, write, read, scan, rename, move, delete: deleteElement }) => {
   // CREATE
-  // console.log(await fileSystem.create("/Heroes", "FOLDER"))
-  // console.log(await fileSystem.create("/Heroes/Avengers", "FOLDER"))
-  // console.log(await fileSystem.create("/Heroes/Avengers/Tony Stark.txt", "FILE"))
+  // console.log(await create("/Heroes", "FOLDER"))
+  // console.log(await create("/Heroes/Avengers", "FOLDER"))
+  // console.log(await create("/Heroes/Avengers/Tony Stark.txt", "FILE"))
 
   // CTIME
-  // console.log(await fileSystem.ctime("/Heroes/Avengers/Tony Stark.txt"))
+  // console.log(await ctime("/Heroes/Avengers/Tony Stark.txt"))
 
   // MTIME
-  // console.log(await fileSystem.mtime("/Heroes/Avengers/Tony Stark.txt"))
+  // console.log(await mtime("/Heroes/Avengers/Tony Stark.txt"))
 
   // WRITE
   // console.log(
-  //   await fileSystem.write("/Heroes/Avengers/Tony Stark.txt", "I am Iron Man")
+  //   await write("/Heroes/Avengers/Tony Stark.txt", "I am Iron Man")
   // )
 
   // READ
-  // console.log(await fileSystem.read("/Heroes/Avengers/Tony Stark.txt"))
+  // console.log(await read("/Heroes/Avengers/Tony Stark.txt"))
 
   // WRITE
   // console.log(
-  //   await fileSystem.write("/Heroes/Avengers/Tony Stark.txt", "I am Tony Stark")
+  //   await write("/Heroes/Avengers/Tony Stark.txt", "I am Tony Stark")
   // )
 
   // MTIME
-  // console.log(await fileSystem.mtime("/Heroes/Avengers/Tony Stark.txt"))
+  // console.log(await mtime("/Heroes/Avengers/Tony Stark.txt"))
 
   // CREATE
-  // console.log(await fileSystem.create("/Heroes/GOTG", "FOLDER"))
-  // console.log(await fileSystem.create("/Heroes/GOTG/Groot.txt", "FILE"))
+  // console.log(await create("/Heroes/GOTG", "FOLDER"))
+  // console.log(await create("/Heroes/GOTG/Groot.txt", "FILE"))
 
   // WRITE
-  // console.log(await fileSystem.write("/Heroes/GOTG/Groot.txt", "I am Groot!"))
+  // console.log(await write("/Heroes/GOTG/Groot.txt", "I am Groot!"))
 
   // READ
-  // console.log(await fileSystem.read("/Heroes/GOTG/Groot.txt"))
+  // console.log(await read("/Heroes/GOTG/Groot.txt"))
 
   // SCAN
-  // console.log(await fileSystem.scan("/Heroes"))
+  // console.log(await scan("/Heroes"))
 
   // RENAME
-  // console.log(await fileSystem.rename('/Heroes/GOTG/Groot.txt', 'Groot2.txt'))
+  // console.log(await rename('/Heroes/GOTG/Groot.txt', 'Groot2.txt'))
 
   // SCAN
-  // console.log(await fileSystem.scan("/Heroes/GOTG"))
-  // console.log(await fileSystem.scan("/Heroes/Avengers"))
+  // console.log(await scan("/Heroes/GOTG"))
+  // console.log(await scan("/Heroes/Avengers"))
 
   // MOVE
-  // console.log(await fileSystem.move('/Heroes/GOTG/Groot2.txt', '/Heroes'))
+  // console.log(await move('/Heroes/GOTG/Groot2.txt', '/Heroes'))
 
   // SCAN
-  // console.log(await fileSystem.scan("/Heroes"))
-  // console.log(await fileSystem.scan("/Heroes/GOTG"))
+  // console.log(await scan("/Heroes"))
+  // console.log(await scan("/Heroes/GOTG"))
 
   // DELETE
-  // console.log(await fileSystem.delete("/Heroes/Avengers"))
+  // console.log(await deleteElement("/Heroes/Avengers"))
+
+  // MOVE
+  // console.log(await move("/Heroes/Groot2.txt", "/Heroes/GOTG/"))
+
+  // RENAME
+  // console.log(await rename("/Heroes/GOTG/Groot2.txt", "Groot.txt"))
 }

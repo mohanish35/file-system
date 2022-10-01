@@ -1,18 +1,28 @@
 import { sqlQueries, keywords } from "../../constant/index.js"
-import path from 'path'
+import path from "path"
 
 class PathUtility {
   constructor(db) {
     this.db = db
   }
 
-  resolvePath(elementPath) {
-    if (elementPath[0] !== '/') throw new Error(`Invalid Path: ${elementPath}`)
+  resolvePath = (elementPath) => {
+    if (elementPath[0] !== "/") throw new Error(`Invalid Path: ${elementPath}`)
 
     return path.resolve(elementPath)
   }
 
-  async validateFolderPathExists(folderPath) {
+  validateElementName = (elementName) => {
+    if (
+      elementName.includes("/") ||
+      elementName.includes("\\") ||
+      elementName === "." ||
+      elementName === ".."
+    )
+      throw new Error("Invalid Name!")
+  }
+
+  validateFolderPathExists = async (folderPath) => {
     const recordCount = await this.db.all(
       sqlQueries.getElementCountFromPathAndType,
       [folderPath, keywords.folder]
@@ -23,7 +33,7 @@ class PathUtility {
     }
   }
 
-  async validateFilePathExists(filePath) {
+  validateFilePathExists = async (filePath) => {
     const recordCount = await this.db.all(
       sqlQueries.getElementCountFromPathAndType,
       [filePath, keywords.file]
@@ -34,11 +44,10 @@ class PathUtility {
     }
   }
 
-  async validateElementPathExists(elementPath) {
-    const recordCount = await this.db.all(
-      sqlQueries.getElementCountFromPath,
-      [elementPath]
-    )
+  validateElementPathExists = async (elementPath) => {
+    const recordCount = await this.db.all(sqlQueries.getElementCountFromPath, [
+      elementPath,
+    ])
 
     if (recordCount[0]["count()"] !== 1) {
       throw new Error(`Invalid Element Path: ${elementPath}`)

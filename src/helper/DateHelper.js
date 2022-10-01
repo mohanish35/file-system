@@ -1,7 +1,5 @@
 class DateHelper {
-  getCurrentUnixTimestamp() {
-    return Date.now()
-  }
+  getCurrentUnixTimestamp = () => Date.now()
 }
 
 export default DateHelper

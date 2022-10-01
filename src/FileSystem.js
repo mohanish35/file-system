@@ -36,6 +36,8 @@ class FileSystem {
       if (elementPath === "/") {
         parentPath = null
         name = "/"
+
+        if (elementType === keywords.file) throw new Error("Invalid Element Type!")
         // Creating an element in the root directory
       } else if (splittedPath.length === 2) {
         parentPath = "/"
@@ -43,6 +45,10 @@ class FileSystem {
       } else {
         parentPath = splittedPath.slice(0, splittedPath.length - 1).join("/")
         name = splittedPath[splittedPath.length - 1]
+      }
+
+      if (elementPath !== "/") {
+        this.pathUtility.validateElementName(name)
       }
 
       if (parentPath) {
@@ -138,6 +144,7 @@ class FileSystem {
     try {
       elementPath = this.pathUtility.resolvePath(elementPath)
       await this.pathUtility.validateElementPathExists(elementPath)
+      this.pathUtility.validateElementName(newName)
 
       if (elementPath === "/") {
         throw new Error("Cannot Rename Root Directory")
